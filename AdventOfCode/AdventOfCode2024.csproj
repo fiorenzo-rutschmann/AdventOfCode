@@ -19,7 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="input\" />
+    <None Update="input\day1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test\day1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
