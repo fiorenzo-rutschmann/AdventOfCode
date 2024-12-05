@@ -11,7 +11,7 @@ namespace AdventOfCode
 
         [Theory]
         [InlineData("./test/day3.txt", 161)]
-        [InlineData("./input/day3.txt", 616561337)]
+        [InlineData("./input/day3.txt", 157621318)]
         public void Part1(string input, int expected)
         {
             string inputString = File.ReadAllText(input);

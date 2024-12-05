@@ -82,8 +82,8 @@ namespace AdventOfCode
         }
 
         [Theory]
-        [InlineData("./test/day4.txt", 0)]
-        [InlineData("./input/day4.txt", 0)]
+        [InlineData("./test/day4.txt", 9)]
+        [InlineData("./input/day4.txt", 1745)]
         public void Part2(string input, int expected)
         {
             string[] inputString = File.ReadAllLines(input);
