@@ -2,7 +2,6 @@
 using System.Numerics;
 using System.Text;
 using Xunit.Abstractions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AdventOfCode
 {
