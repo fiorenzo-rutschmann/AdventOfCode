@@ -162,5 +162,69 @@ namespace AdventOfCode
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        //[InlineData("./test/day14.txt", 80, 11, 7)]
+        [InlineData("./input/day14.txt", 8149, 101, 103)]
+        public void Part2_Manhattan(string file, long expected, int width, int height)
+        {
+            string input = File.ReadAllText(file);
+            long result = 0;
+
+            //parse input
+            var matches = rgx.Matches(input);
+
+            List<Robot> robots = new List<Robot>();
+
+            foreach (Match match in matches)
+            {
+                var newrobot = new Robot()
+                {
+                    x = int.Parse(match.Groups["x"].Value),
+                    y = int.Parse(match.Groups["y"].Value),
+                    vx = int.Parse(match.Groups["vx"].Value),
+                    vy = int.Parse(match.Groups["vy"].Value),
+                };
+
+                robots.Add(newrobot);
+            }
+
+            int seconds = 10000; //guess the max
+
+            long min = long.MaxValue;
+            int index = 0;
+
+            for (int i = 1; i < seconds; i++)
+            {
+                foreach (Robot robot in robots)
+                {
+                    robot.x += robot.vx;
+                    robot.y += robot.vy;
+
+                    robot.x = mod(robot.x, width);
+                    robot.y = mod(robot.y, height);
+                }
+
+                long manhattan = 0;
+                foreach (Robot r1 in robots)
+                {
+                    foreach (Robot r2 in robots)
+                    {
+                        manhattan += Math.Abs(r1.x - r2.x) + Math.Abs(r1.y - r2.y);
+                    }
+                }
+
+                if (manhattan < min)
+                {
+                    min = manhattan;
+                    index = i;
+                }
+            }
+
+            result = index;
+
+            Assert.Equal(expected, result);
+        }
+
+
     }
 }
