@@ -174,12 +174,8 @@ namespace AdventOfCode
                 claws.Add(newclaw);
             }
 
-
-
-
             foreach (ClawMachine claw in claws)
             {
-
 
                 //find cheapest
                 long aValue = (claw.ax / ATOKENCOST) + (claw.ay / ATOKENCOST);
