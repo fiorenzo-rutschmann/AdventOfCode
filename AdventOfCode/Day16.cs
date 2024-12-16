@@ -199,12 +199,84 @@ namespace AdventOfCode
         }
 
 
+        [Fact]
+        public void PrintPoints()
+        {
+            List<(int, int)> paths = new()
+            {
+                (13, 1) ,
+                (12, 1) ,
+                (11, 1) ,
+                (10, 1) ,
+                (9, 1)  ,
+                (9, 2)  ,
+                (9, 3)  ,
+                (8, 3)  ,
+                (7, 3)  ,
+                (7, 4)  ,
+                (7, 5)  ,
+                (7, 6)  ,
+                (7, 7)  ,
+                (7, 8)  ,
+                (7, 9)  ,
+                (7, 10) ,
+                (7, 11) ,
+                (8, 11) ,
+                (9, 11) ,
+                (10, 11),
+                (11, 11),
+                (12, 11),
+                (13, 11),
+                (13, 12),
+                (13, 13),
+                (12, 13),
+                (11, 13),
+                (10, 13),
+                (9, 13) ,
+                (8, 13) ,
+                (7, 13) ,
+                (6, 13) ,
+                (5, 13) ,
+                (4, 13) ,
+                (3, 13) ,
+                (2, 13) ,
+                (1, 13)
+
+            };
+
+
+            long score = 0;
+
+            (int, int) lastVector = (0, +1);
+            for (int i = 1; i < paths.Count(); i++)
+            {
+                var path = paths[i];
+                (int, int) lastPosition = paths[i - 1];
+
+                (int, int) vector = (path.Item1 - lastPosition.Item1, path.Item2 - lastPosition.Item2);
+
+                if (vector != lastVector)
+                {
+                    score += 1000;
+                }
+
+                score++;
+
+
+                output.WriteLine($"{path} -> {score}");
+
+                lastVector = vector;
+            }
+
+            Assert.Fail();
+        }
+
 
         [Theory]
         [InlineData("./test/day16.txt", 7036)]
         [InlineData("./test/day16_1.txt", 11048)]
         [InlineData("./input/day16.txt", 0)]
-        public void Part1_Dykstras(string file, long expected)
+        public void Part1_Dijkstra(string file, long expected)
         {
             string[] input = File.ReadAllLines(file);
             long result = 0;
@@ -267,7 +339,7 @@ namespace AdventOfCode
                 //rotate right
                 int vexRX = vecY * -1;
                 int vexRY = vecX;
-                var lastR = (current.Item1 + vexRY, current.Item2 + vexRX, vecY, vecX, points + 1001);
+                var lastR = (current.Item1 + vexRY, current.Item2 + vexRX, vexRY, vexRX, points + 1001);
                 if (!seenNodes.ContainsKey((lastR.Item1, lastR.Item2)) || seenNodes[(lastR.Item1, lastR.Item2)] >= lastR.Item5)
                 {
                     if (!seenNodes.ContainsKey((lastR.Item1, lastR.Item2)))
@@ -281,7 +353,7 @@ namespace AdventOfCode
                 //rotate left
                 int vexLX = vecY;
                 int vexLY = vecX * -1;
-                var lastL = (current.Item1 + vexLY, current.Item2 + vexLX, vecY, vecX, points + 1001);
+                var lastL = (current.Item1 + vexLY, current.Item2 + vexLX, vexLY, vexLX, points + 1001);
                 if (!seenNodes.ContainsKey((lastL.Item1, lastL.Item2)) || seenNodes[(lastL.Item1, lastL.Item2)] >= lastL.Item5)
                 {
                     if (!seenNodes.ContainsKey((lastL.Item1, lastL.Item2)))
@@ -305,8 +377,36 @@ namespace AdventOfCode
                 }
             }
 
+            PrintMap2(map, seenNodes, lowestpoints);
+
             result = lowestpoints;
             Assert.Equal(expected, result);
+        }
+
+        private void PrintMap2(char[][] map, Dictionary<(int, int), long> path, long points)
+        {
+            //output
+            StringBuilder sb = new();
+
+            sb.AppendLine($"Points = {points}");
+            for (int row = 0; row < map.Length; row++)
+            {
+                for (int col = 0; col < map[row].Length; col++)
+                {
+                    if (path.ContainsKey((row, col)) && path[(row, col)] < points)
+                    {
+                        sb.Append('H');
+                    }
+                    else
+                    {
+                        sb.Append(map[row][col]);
+                    }
+
+                }
+                sb.AppendLine();
+            }
+
+            output.WriteLine(sb.ToString());
         }
 
         [Theory]
