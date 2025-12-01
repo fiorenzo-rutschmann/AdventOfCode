@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Advent Of Code input files
 /AdventOfCode/input/*
+/AdventOfCode2025/input
