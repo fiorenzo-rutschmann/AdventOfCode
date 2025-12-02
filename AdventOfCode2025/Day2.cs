@@ -6,7 +6,7 @@ public class Day2
 {
     [Theory]
     [InlineData("./test/day2.txt", 1227775554)]
-    [InlineData("./input/day2.txt", 0)]
+    [InlineData("./input/day2.txt", 21139440284)]
     public void Part1(string input, long expected)
     {
         string[] lines = File.ReadAllLines(input);
@@ -48,8 +48,8 @@ public class Day2
 
     [Theory]
     [InlineData("./test/day2.txt", 4174379265)]
-    [InlineData("./input/day2.txt", 0)]
-    public void Part2(string input, int expected)
+    [InlineData("./input/day2.txt", 38731915928)]
+    public void Part2(string input, long expected)
     {
         string[] lines = File.ReadAllLines(input);
 
