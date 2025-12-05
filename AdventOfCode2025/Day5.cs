@@ -1,4 +1,6 @@
 ﻿
+using Xunit.Sdk;
+
 namespace AdventOfCode2025;
 
 public class Day5
@@ -193,6 +195,70 @@ public class Day5
 
         result = ranges.Sum(r => r[0] == r[1] ? 1 : (r[1] - r[0]) + 1);
 
+        Assert.Equal(expected, result);
+    }
+
+    //7:38 start
+    //7:53 end
+
+    [Theory]
+    [InlineData("./test/day5.txt", 14)]
+    [InlineData("./input/day5.txt", 350780324308385)]
+    public void Part2_Better(string input, long expected)
+    {
+        string[] lines = File.ReadAllLines(input);
+
+        long result = 0;
+
+        List<string> freshRanges = new List<string>();
+        List<string> ingredients = new List<string>();
+
+        bool next = false;
+        foreach (string line in lines)
+        {
+            if (line.Length < 1)
+            {
+                next = true;
+                continue;
+            }
+
+            if (next)
+            {
+                ingredients.Add(line);
+            }
+            else
+            {
+                freshRanges.Add(line);
+            }
+        }
+
+        var ranges = freshRanges.Select(line => line.Split('-').Select(long.Parse).ToArray()).ToList();
+
+        var sorted = ranges.OrderBy(r => r[0]).ToList();
+
+        long current = sorted.First()[0];
+
+        foreach (var range in sorted)
+        {
+            if (current >= range[0])
+            {
+                if (current >= range[1])
+                {
+                    continue;
+                }
+
+                result += range[1] - current;
+            }
+            else
+            {
+                result += range[1] - range[0];
+                result++;
+            }
+
+            current = range[1];
+        }
+
+        result++;
         Assert.Equal(expected, result);
     }
 }
