@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="input\day9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="input\day8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="input\day7.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -38,6 +44,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="input\day1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="test\day9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="test\day8.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="test\day7.txt">
